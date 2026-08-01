@@ -13,21 +13,46 @@ A custom fork of [Termux](https://github.com/termux/termux-app) with extra featu
 
 👉 [Download the latest APK from Releases](../../releases/latest)
 
-## How to use Backup Import
+## Backup & Restore
 
-1. Long-press the terminal to open the context menu
-2. Tap **"Backup Import"**
-3. Select a `.zip` backup file (must contain a `.nimesh` marker file)
-4. Wait for the "Backup imported successfully" toast
-5. Restart Termux
-
-### Creating a backup
+### Creating a backup (config only)
 
 ```bash
 cd ~
 touch .nimesh
 zip -r ~/storage/downloads/my_backup.zip .bashrc .zshrc .termux .nimesh
 ```
+
+### Creating a backup (config + theme / icon pack)
+
+If you're also backing up your theme, icon pack, or Termux logo/banner customizations:
+
+```bash
+cd ~
+touch .nimesh
+zip -r ~/storage/downloads/theme_backup.zip .termux .termux-logo .stylix StyliX logo-ls .nimesh
+```
+
+### Creating a full backup (everything)
+
+```bash
+cd ~
+touch .nimesh
+zip -r ~/storage/downloads/full_backup_$(date +%Y%m%d).zip .bashrc .zshrc .p10k.zsh .termux .termux-logo .stylix StyliX logo-ls .nimesh
+```
+
+> ⚠️ Run `ls -la ~` first to confirm the exact folder names on your device — not all setups have every folder listed above (e.g. `StyliX` or `.stylix` may not exist if you don't use that theme engine). Remove any folder name from the command that doesn't apply to you, or you'll get a harmless "name not matched" warning.
+
+### Restoring a backup (Backup Import)
+
+1. Copy your backup `.zip` file to your device (e.g. `Downloads` folder)
+2. Open Termux, long-press the terminal to open the context menu
+3. Tap **"Backup Import"**
+4. Select your `.zip` backup file
+5. Wait for the **"Backup imported successfully. Restart Termux."** toast
+6. Restart Termux — your files, dotfiles, and theme/icon customizations will be restored
+
+**Note:** Backup Import overwrites existing files with the same name. If you have current changes you want to keep, back those up first before restoring an older backup.
 
 ## Credits
 
